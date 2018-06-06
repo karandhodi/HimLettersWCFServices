@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="himlettersModelStoreContainer" CdmEntityContainer="HimLettersEntities">
+    <EntitySetMapping Name="Facilities">
+      <EntityTypeMapping TypeName="himlettersModel.Facility">
+        <MappingFragment StoreEntitySet="Facility">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Facility_Name" ColumnName="Facility_Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Letter_Details">
+      <EntityTypeMapping TypeName="himlettersModel.Letter_Details">
+        <MappingFragment StoreEntitySet="Letter_Details">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Deficient_Day_Range_Start" ColumnName="Deficient_Day_Range_Start" />
+          <ScalarProperty Name="Deficient_Day_Range_End" ColumnName="Deficient_Day_Range_End" />
+          <ScalarProperty Name="Include_Documents" ColumnName="Include_Documents" />
+          <ScalarProperty Name="Chart_On_Hold" ColumnName="Chart_On_Hold" />
+          <ScalarProperty Name="Physicians_To_Include" ColumnName="Physicians_To_Include" />
+          <ScalarProperty Name="Charts_To_Include" ColumnName="Charts_To_Include" />
+          <ScalarProperty Name="Deficiencies_To_Include" ColumnName="Deficiencies_To_Include" />
+          <ScalarProperty Name="Include_Visits" ColumnName="Include_Visits" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Letter_Type">
+      <EntityTypeMapping TypeName="himlettersModel.Letter_Type">
+        <MappingFragment StoreEntitySet="Letter_Type">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Physicians">
+      <EntityTypeMapping TypeName="himlettersModel.Physician">
+        <MappingFragment StoreEntitySet="Physician">
+          <ScalarProperty Name="Id_Facility" ColumnName="Id_Facility" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Fax" ColumnName="Fax" />
+          <ScalarProperty Name="Id_Letter_Type" ColumnName="Id_Letter_Type" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="getLetterTypeList" FunctionName="himlettersModel.Store.getLetterTypeList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="himlettersModel.getLetterTypeList_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="getFacility" FunctionName="himlettersModel.Store.getFacility">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="himlettersModel.getFacility_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Facility_Name" ColumnName="Facility_Name" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="getLetterDetail" FunctionName="himlettersModel.Store.getLetterDetail">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="himlettersModel.getLetterDetail_Result">
+          <ScalarProperty Name="Deficient_Day_Range_Start" ColumnName="Deficient_Day_Range_Start" />
+          <ScalarProperty Name="Deficient_Day_Range_End" ColumnName="Deficient_Day_Range_End" />
+          <ScalarProperty Name="Include_Documents" ColumnName="Include_Documents" />
+          <ScalarProperty Name="Chart_On_Hold" ColumnName="Chart_On_Hold" />
+          <ScalarProperty Name="Physicians_To_Include" ColumnName="Physicians_To_Include" />
+          <ScalarProperty Name="Charts_To_Include" ColumnName="Charts_To_Include" />
+          <ScalarProperty Name="Deficiencies_To_Include" ColumnName="Deficiencies_To_Include" />
+          <ScalarProperty Name="Include_Visits" ColumnName="Include_Visits" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="getPhysiciansList" FunctionName="himlettersModel.Store.getPhysiciansList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="himlettersModel.getPhysiciansList_Result">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Fax" ColumnName="Fax" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="getPhysiciansListAll" FunctionName="himlettersModel.Store.getPhysiciansListAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="himlettersModel.getPhysiciansListAll_Result">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Fax" ColumnName="Fax" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="himlettersModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="getPassword" FunctionName="himlettersModel.Store.getPassword" />
+    <FunctionImportMapping FunctionImportName="getPass" FunctionName="himlettersModel.Store.getPass">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="himlettersModel.getPass_Result">
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,13 @@
+C:\Users\KD056573\source\repos\HimLettersWCFService\HimLettersWCFService\bin\HimLettersWCFService.dll.config
+C:\Users\KD056573\source\repos\HimLettersWCFService\HimLettersWCFService\bin\HimLettersWCFService.dll
+C:\Users\KD056573\source\repos\HimLettersWCFService\HimLettersWCFService\bin\HimLettersWCFService.pdb
+C:\Users\KD056573\source\repos\HimLettersWCFService\HimLettersWCFService\bin\EntityFramework.dll
+C:\Users\KD056573\source\repos\HimLettersWCFService\HimLettersWCFService\bin\EntityFramework.SqlServer.dll
+C:\Users\KD056573\source\repos\HimLettersWCFService\HimLettersWCFService\bin\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\KD056573\source\repos\HimLettersWCFService\HimLettersWCFService\bin\EntityFramework.xml
+C:\Users\KD056573\source\repos\HimLettersWCFService\HimLettersWCFService\bin\EntityFramework.SqlServer.xml
+C:\Users\KD056573\source\repos\HimLettersWCFService\HimLettersWCFService\obj\Debug\HimLettersWCFService.csproj.CoreCompileInputs.cache
+C:\Users\KD056573\source\repos\HimLettersWCFService\HimLettersWCFService\obj\Debug\HimLettersWCFService.dll
+C:\Users\KD056573\source\repos\HimLettersWCFService\HimLettersWCFService\obj\Debug\HimLettersWCFService.pdb
+C:\Users\KD056573\source\repos\HimLettersWCFService\HimLettersWCFService\obj\Debug\HimLettersWCFService.csprojResolveAssemblyReference.cache
+C:\Users\KD056573\source\repos\HimLettersWCFService\HimLettersWCFService\obj\Debug\HimLettersWCFService.csproj.CopyComplete

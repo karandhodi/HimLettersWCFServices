@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="himlettersModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Facility">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Facility_Name" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Letter_Details">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Deficient_Day_Range_Start" Type="varchar" MaxLength="50" />
+    <Property Name="Deficient_Day_Range_End" Type="varchar" MaxLength="50" />
+    <Property Name="Include_Documents" Type="varchar" MaxLength="50" />
+    <Property Name="Chart_On_Hold" Type="varchar" MaxLength="50" />
+    <Property Name="Physicians_To_Include" Type="varchar" MaxLength="50" />
+    <Property Name="Charts_To_Include" Type="varchar" MaxLength="50" />
+    <Property Name="Deficiencies_To_Include" Type="varchar" MaxLength="50" />
+    <Property Name="Include_Visits" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Letter_Type">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Physician">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id_Facility" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Fax" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Id_Letter_Type" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Username" />
+    </Key>
+    <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Letter_Details_Table_Letter_Type_Table">
+    <End Role="Letter_Type" Type="Self.Letter_Type" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Letter_Details" Type="Self.Letter_Details" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Letter_Type">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Letter_Details">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Table_Physician_Table_Facility">
+    <End Role="Facility" Type="Self.Facility" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Physician" Type="Self.Physician" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Facility">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Physician">
+        <PropertyRef Name="Id_Facility" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Table_Physician_Table_Letter_Type">
+    <End Role="Letter_Type" Type="Self.Letter_Type" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Physician" Type="Self.Physician" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Letter_Type">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Physician">
+        <PropertyRef Name="Id_Letter_Type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="getFacility" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="getLetterDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="getLetterTypeList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="getPass" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Username" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="getPassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Username" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="getPhysiciansList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdLetterType" Type="int" Mode="In" />
+    <Parameter Name="IdFacility" Type="int" Mode="In" />
+  </Function>
+  <Function Name="getPhysiciansListAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdLetterType" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="himlettersModelStoreContainer">
+    <EntitySet Name="Facility" EntityType="Self.Facility" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Letter_Details" EntityType="Self.Letter_Details" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Letter_Type" EntityType="Self.Letter_Type" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Physician" EntityType="Self.Physician" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Letter_Details_Table_Letter_Type_Table" Association="Self.FK_Letter_Details_Table_Letter_Type_Table">
+      <End Role="Letter_Type" EntitySet="Letter_Type" />
+      <End Role="Letter_Details" EntitySet="Letter_Details" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Table_Physician_Table_Facility" Association="Self.FK_Table_Physician_Table_Facility">
+      <End Role="Facility" EntitySet="Facility" />
+      <End Role="Physician" EntitySet="Physician" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Table_Physician_Table_Letter_Type" Association="Self.FK_Table_Physician_Table_Letter_Type">
+      <End Role="Letter_Type" EntitySet="Letter_Type" />
+      <End Role="Physician" EntitySet="Physician" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

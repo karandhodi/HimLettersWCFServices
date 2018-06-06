@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="himlettersModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Facility">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Facility_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Physicians" Relationship="Self.FK_Table_Physician_Table_Facility" FromRole="Facility" ToRole="Physician" />
+  </EntityType>
+  <EntityType Name="Letter_Details">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Deficient_Day_Range_Start" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Deficient_Day_Range_End" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Include_Documents" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Chart_On_Hold" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Physicians_To_Include" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Charts_To_Include" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Deficiencies_To_Include" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Include_Visits" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Letter_Type" Relationship="Self.FK_Letter_Details_Table_Letter_Type_Table" FromRole="Letter_Details" ToRole="Letter_Type" />
+  </EntityType>
+  <EntityType Name="Letter_Type">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Letter_Details" Relationship="Self.FK_Letter_Details_Table_Letter_Type_Table" FromRole="Letter_Type" ToRole="Letter_Details" />
+    <NavigationProperty Name="Physicians" Relationship="Self.FK_Table_Physician_Table_Letter_Type" FromRole="Letter_Type" ToRole="Physician" />
+  </EntityType>
+  <EntityType Name="Physician">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id_Facility" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Fax" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Id_Letter_Type" Type="Int32" Nullable="false" />
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Facility" Relationship="Self.FK_Table_Physician_Table_Facility" FromRole="Physician" ToRole="Facility" />
+    <NavigationProperty Name="Letter_Type" Relationship="Self.FK_Table_Physician_Table_Letter_Type" FromRole="Physician" ToRole="Letter_Type" />
+  </EntityType>
+  <Association Name="FK_Table_Physician_Table_Facility">
+    <End Role="Facility" Type="Self.Facility" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Physician" Type="Self.Physician" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Facility">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Physician">
+        <PropertyRef Name="Id_Facility" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Letter_Details_Table_Letter_Type_Table">
+    <End Role="Letter_Type" Type="Self.Letter_Type" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Letter_Details" Type="Self.Letter_Details" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Letter_Type">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Letter_Details">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Table_Physician_Table_Letter_Type">
+    <End Role="Letter_Type" Type="Self.Letter_Type" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Physician" Type="Self.Physician" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Letter_Type">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Physician">
+        <PropertyRef Name="Id_Letter_Type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HimLettersEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Facilities" EntityType="Self.Facility" />
+    <EntitySet Name="Letter_Details" EntityType="Self.Letter_Details" />
+    <EntitySet Name="Letter_Type" EntityType="Self.Letter_Type" />
+    <EntitySet Name="Physicians" EntityType="Self.Physician" />
+    <AssociationSet Name="FK_Table_Physician_Table_Facility" Association="Self.FK_Table_Physician_Table_Facility">
+      <End Role="Facility" EntitySet="Facilities" />
+      <End Role="Physician" EntitySet="Physicians" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Letter_Details_Table_Letter_Type_Table" Association="Self.FK_Letter_Details_Table_Letter_Type_Table">
+      <End Role="Letter_Type" EntitySet="Letter_Type" />
+      <End Role="Letter_Details" EntitySet="Letter_Details" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Table_Physician_Table_Letter_Type" Association="Self.FK_Table_Physician_Table_Letter_Type">
+      <End Role="Letter_Type" EntitySet="Letter_Type" />
+      <End Role="Physician" EntitySet="Physicians" />
+    </AssociationSet>
+    <FunctionImport Name="getLetterTypeList" ReturnType="Collection(himlettersModel.getLetterTypeList_Result)" />
+    <FunctionImport Name="getFacility" ReturnType="Collection(himlettersModel.getFacility_Result)" />
+    <FunctionImport Name="getLetterDetail" ReturnType="Collection(himlettersModel.getLetterDetail_Result)">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="getPhysiciansList" ReturnType="Collection(himlettersModel.getPhysiciansList_Result)">
+      <Parameter Name="IdLetterType" Mode="In" Type="Int32" />
+      <Parameter Name="IdFacility" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="getPhysiciansListAll" ReturnType="Collection(himlettersModel.getPhysiciansListAll_Result)">
+      <Parameter Name="IdLetterType" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="Users" EntityType="himlettersModel.User" />
+    <FunctionImport Name="getPassword" ReturnType="Collection(String)">
+      <Parameter Name="Username" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="getPass" ReturnType="Collection(himlettersModel.getPass_Result)">
+      <Parameter Name="Username" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="getLetterTypeList_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="getLetterDetails_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Deficient_Day_Range_Start" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Deficient_Day_Range_End" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Include_Documents" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Chart_On_Hold" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Physicians_To_Include" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Charts_To_Include" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Deficiencies_To_Include" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Include_Visits" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="getFacility_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Facility_Name" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="getPhysicianList_Result">
+    <Property Type="Int32" Name="Id_Facility" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Email" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Fax" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="Id_Letter_Type" Nullable="false" />
+    <Property Type="Int32" Name="Id" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="getLetterDetail_Result">
+    <Property Type="String" Name="Deficient_Day_Range_Start" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Deficient_Day_Range_End" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Include_Documents" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Chart_On_Hold" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Physicians_To_Include" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Charts_To_Include" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Deficiencies_To_Include" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Include_Visits" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="getPhysiciansList_Result">
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Email" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Fax" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="getPhysiciansListAll_Result">
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Email" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Fax" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Username" />
+    </Key>
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <ComplexType Name="getPass_Result">
+    <Property Type="String" Name="Username" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Password" Nullable="false" MaxLength="50" />
+  </ComplexType>
+</Schema>
